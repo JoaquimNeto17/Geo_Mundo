@@ -9,32 +9,32 @@ const PERSONAGENS = {
   classica: {
     nome: "Clássica",
     descricao: "A exploradora original",
-    caminho: (reacao) => `assets/personagens/classic_${reacao}.png`
+    caminho: (reacao) => `assets/personagens/classic_${reacao}.webp`
   },
   bone: {
     nome: "Boné",
     descricao: "Pronta para qualquer aventura",
-    caminho: (reacao) => `assets/personagens/bone_${reacao}.png`
+    caminho: (reacao) => `assets/personagens/bone_${reacao}.webp`
   },
   brasa: {
     nome: "Brasil",
     descricao: "Apaixonada pelo Brasil",
-    caminho: (reacao) => `assets/personagens/brasa_${reacao}.png`
+    caminho: (reacao) => `assets/personagens/brasa_${reacao}.webp`
   },
   escot: {
     nome: "Exploradora",
     descricao: "Especialista em novas rotas",
-    caminho: (reacao) => `assets/personagens/escot_${reacao}.png`
+    caminho: (reacao) => `assets/personagens/escot_${reacao}.webp`
   },
   maloka: {
     nome: "Maloka",
     descricao: "Estilo e muita confiança",
-    caminho: (reacao) => `assets/personagens/maloka_${reacao}.png`
+    caminho: (reacao) => `assets/personagens/maloka_${reacao}.webp`
   },
   terno: {
     nome: "Terno",
     descricao: "Elegante e estratégica",
-    caminho: (reacao) => `assets/personagens/terno_${reacao}.png`
+    caminho: (reacao) => `assets/personagens/terno_${reacao}.webp`
   }
 };
 
