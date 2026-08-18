@@ -11,17 +11,47 @@
 
 const RANKING_KEY = "geomundo_ranking";
 const RANKING_MAX = 10;
+const PERFIS_JOGADORES_KEY = "geo_suite_profiles";
+
+function normalizarNomePerfil(nome) {
+  return String(nome || "").trim().replace(/\s+/g, " ").toLocaleUpperCase("pt-BR");
+}
+
+function carregarPerfisGeo() {
+  try { return JSON.parse(localStorage.getItem(PERFIS_JOGADORES_KEY)) || {}; }
+  catch (_) { return {}; }
+}
+
+function buscarPerfilGeo(nome) {
+  return carregarPerfisGeo()[normalizarNomePerfil(nome)] || null;
+}
+
+function salvarPerfilGeo(progress) {
+  if (!progress?.nome) return;
+  const perfis = carregarPerfisGeo();
+  const chave = normalizarNomePerfil(progress.nome);
+  perfis[chave] = {
+    ...(perfis[chave] || {}), nome: progress.nome,
+    xp: Number(progress.xp) || 0,
+    personagem: normalizarPersonagem(progress.avatar),
+    nivel: Number(progress.nivel) || 1,
+    atualizadoEm: Date.now()
+  };
+  localStorage.setItem(PERFIS_JOGADORES_KEY, JSON.stringify(perfis));
+}
 
 /**
  * Cria um objeto de progresso zerado para uma nova partida,
  * associado ao nome informado pelo jogador.
  */
 function novaSessao(nome, avatar) {
+  const nomeLimpo = nome && nome.trim() ? nome.trim().slice(0, 20) : "Jogador";
+  const perfil = buscarPerfilGeo(nomeLimpo);
   return {
-    nome: nome && nome.trim() ? nome.trim().slice(0, 20) : "Jogador",
-    avatar: normalizarPersonagem(avatar),
-    xp: 0,
-    nivel: 1,
+    nome: nomeLimpo,
+    avatar: normalizarPersonagem(perfil?.personagem || avatar),
+    xp: Number(perfil?.xp) || 0,
+    nivel: Number(perfil?.nivel) || 1,
     maiorSequencia: 0,
     perguntasRespondidas: 0,
     acertos: 0,
@@ -70,6 +100,7 @@ function limparRanking() {
  */
 function salvarNoRanking(progress) {
   try {
+    salvarPerfilGeo(progress);
     const ranking = carregarRanking();
     ranking.push({
       nome: progress.nome,

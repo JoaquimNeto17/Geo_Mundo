@@ -135,6 +135,7 @@ function calcularXpAcerto() {
 
 function updateScore(delta) {
   estado.progress.xp = Math.max(0, estado.progress.xp + delta);
+  salvarPerfilGeo(estado.progress);
   atualizarHudJogo(estado.progress, regiaoAtual());
 }
 
